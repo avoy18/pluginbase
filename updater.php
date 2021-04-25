@@ -45,6 +45,14 @@ class Smashing_Updater {
 		$this->authorize_token = $token;
 	}
 
+	public function gimmeResponse( $token ) {
+		if ( is_null( $this->github_response ) ) { 
+			echo 'null!!!';
+		}else{
+			echo 'not null!!!';
+		}
+	}
+
 	private function get_repository_info() {
 	    if ( is_null( $this->github_response ) ) { // Do we have a response?
 		$args = array();
