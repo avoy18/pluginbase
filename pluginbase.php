@@ -18,16 +18,14 @@ if (!defined('ABSPATH') && !function_exists('add_action')) {
     die;
 }
 
-function dummy_plugin_run()
-{
-    
+if( ! class_exists( 'Smashing_Updater' ) ){
+	include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
 }
 
-// add_action('admin_enqueue_scripts', 'seoplus_admin_scripts');
-
-// function seoplus_admin_scripts()
-// {
-//     wp_enqueue_script('jquery-migrate');
-// }
-
-add_action('plugins_loaded', 'dummy_plugin_run', 10, 0);
+$updater = new Smashing_Updater( __FILE__ );
+$updater->set_username( 'avoy18' );
+$updater->set_repository( 'pluginbase' );
+/*
+	$updater->authorize( 'abcdefghijk1234567890' ); // Your auth code goes here for private repos
+*/
+$updater->initialize();
