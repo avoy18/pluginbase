@@ -6,8 +6,8 @@
 /**
  * Plugin Name: Base Plugin
  * Plugin URI: https://base.plugin
- * Description: Plugin starter files and the version is 1.2.0
- * Version: 1.9.0
+ * Description: Plugin starter files
+ * Version: 1.0.0
  * Author: Anton Voytenko
  * Author URI: https://avoy.me
  * License: MTI
