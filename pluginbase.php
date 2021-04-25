@@ -6,6 +6,7 @@
 /**
  * Plugin Name: Base Plugin
  * Plugin URI: https://base.plugin
+ * GitHub Plugin URI: https://github.com/avoy18/pluginbase
  * Description: Plugin starter files
  * Version: 1.0.0
  * Author: Anton Voytenko
