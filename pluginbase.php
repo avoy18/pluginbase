@@ -15,17 +15,29 @@
  */
 
 if (!defined('ABSPATH') && !function_exists('add_action')) {
-    die;
+	die;
 }
 
-if( ! class_exists( 'Smashing_Updater' ) ){
-	include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
+class BasePlugin
+{
+
+	function activate(){
+		
+	}
+
+	function deactivate(){
+
+	}
+
+	function uninstall(){
+
+	}
+	
+	// __construct(){
+	// 	//
+	// }
 }
 
-$updater = new Smashing_Updater( __FILE__ );
-$updater->set_username( 'avoy18' );
-$updater->set_repository( 'pluginbase' );
-/*
-	$updater->authorize( 'abcdefghijk1234567890' ); // Your auth code goes here for private repos
-*/
-$updater->initialize();
+if (class_exists('BasePlugin')) {
+	$basePlugin = new BasePlugin();
+}
