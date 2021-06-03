@@ -48,3 +48,5 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 // $theQuery = 'DELETE FROM ' . $wpdb->prefix() . 'posts WHERE post_type IN (' . $postTypes.implode(',') . ')' ;
 
 // $wpdb->query($theQuery);
+
+flush_rewrite_rules();
