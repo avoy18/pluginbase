@@ -40,4 +40,10 @@ class BasePlugin
 
 if (class_exists('BasePlugin')) {
 	$basePlugin = new BasePlugin();
+
+	register_activation_hook(__FILE__, array($basePlugin, 'activate'));
+	
+	register_deactivation_hook(__FILE__, array($basePlugin, 'deactivate'));
+
+	
 }
