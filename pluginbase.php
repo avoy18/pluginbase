@@ -79,6 +79,18 @@ class BasePlugin
 	}
 }
 
+function activate_base_plugin()
+{
+	require_once BASE_PLUGIN_PATH . '/inc/class-activation.php';
+	BasePluginActivation::activate();
+}
+
+function deactivate_base_plugin()
+{
+	require_once BASE_PLUGIN_PATH . '/inc/class-deactivation.php';
+	BasePluginDeactivation::deactivate();
+}
+
 if (class_exists('BasePlugin')) {
 	$basePlugin = new BasePlugin();
 
@@ -86,21 +98,7 @@ if (class_exists('BasePlugin')) {
 
 	add_action('admin_enqueue_scripts', array('BasePlugin', 'admin_enqueue'));
 
-
-	function activate_base_plugin()
-	{
-		require_once BASE_PLUGIN_PATH . '/inc/class-activation.php';
-		BasePluginActivation::activate();
-	}
-
-	function deactivate_base_plugin()
-	{
-		require_once BASE_PLUGIN_PATH . '/inc/class-deactivation.php';
-		BasePluginDeactivation::deactivate();
-	}
-
 	register_activation_hook(__FILE__, 'activate_base_plugin');
-	
-	register_deactivation_hook(__FILE__, 'deactivate_base_plugin');
 
+	register_deactivation_hook(__FILE__, 'deactivate_base_plugin');
 }
