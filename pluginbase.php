@@ -18,30 +18,37 @@ if (!defined('ABSPATH') && !function_exists('add_action')) {
 	die;
 }
 
-define( 'BASE_PLUGIN_VERSION', '1.0.0' );
+define('BASE_PLUGIN_VERSION', '1.0.0');
 
-define( 'BASE_PLUGIN_PREFIX', 'base_plugin_' );
+define('BASE_PLUGIN_PREFIX', 'base_plugin_');
 
 
 class BasePlugin
 {
-
-
-	function activate(){
-		
+	function __construct()
+	{
+		add_action('init', array($this, 'cpt'));
 	}
 
-	function deactivate(){
-
+	function activate()
+	{
+		$this->cpt();
+		flush_rewrite_rules();
 	}
 
-	function uninstall(){
-
+	function deactivate()
+	{
+		flush_rewrite_rules();
 	}
 
-	function cpt(){
+	function uninstall()
+	{
+	}
+
+	function cpt()
+	{
 		$postTypes = array();
-	
+
 		foreach ($postTypes as $postType) {
 			$args = array(
 				'public'    => true,
@@ -76,20 +83,16 @@ class BasePlugin
 				)
 			);
 			register_post_type($postType['name'], $args);
-	
+		}
 	}
-	
-	// __construct(){
-	// 	//
-	// }
 }
 
 if (class_exists('BasePlugin')) {
 	$basePlugin = new BasePlugin();
 
 	register_activation_hook(__FILE__, array($basePlugin, 'activate'));
-	
+
 	register_deactivation_hook(__FILE__, array($basePlugin, 'deactivate'));
 
-
+	register_deactivation_hook(__FILE__, array($basePlugin, 'uninstall'));
 }
