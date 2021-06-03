@@ -31,18 +31,7 @@ class BasePlugin
 	{
 	}
 
-	function activate()
-	{
-		$this->cpt();
-		flush_rewrite_rules();
-	}
-
-	function deactivate()
-	{
-		flush_rewrite_rules();
-	}
-
-	function cpt()
+	public static function cpt()
 	{
 		$postTypes = array();
 
@@ -83,7 +72,7 @@ class BasePlugin
 		}
 	}
 
-	function admin_enqueue()
+	public static function admin_enqueue()
 	{
 		wp_enqueue_style(BASE_PLUGIN_PREFIX . '-styles', BASE_PLUGIN_PATH . '/assets/pluginbase.css', array(), BASE_PLUGIN_VERSION, 'all');
 		wp_enqueue_script(BASE_PLUGIN_PREFIX . '-scripts', BASE_PLUGIN_PATH . '/assets/pluginbase.js', array(), BASE_PLUGIN_VERSION, true);
@@ -93,9 +82,25 @@ class BasePlugin
 if (class_exists('BasePlugin')) {
 	$basePlugin = new BasePlugin();
 
-	register_activation_hook(__FILE__, array($basePlugin, 'activate'));
-	register_deactivation_hook(__FILE__, array($basePlugin, 'deactivate'));
+	add_action('init', array('BasePlugin', 'cpt'));
 
-	add_action('init', array($basePlugin, 'cpt'));
-	add_action('admin_enqueue_scripts', array($basePlugin, 'admin_enqueue'));
+	add_action('admin_enqueue_scripts', array('BasePlugin', 'admin_enqueue'));
+
+
+	function activate_base_plugin()
+	{
+		require_once BASE_PLUGIN_PATH . '/inc/class-activation.php';
+		BasePluginActivation::activate();
+	}
+
+	function deactivate_base_plugin()
+	{
+		require_once BASE_PLUGIN_PATH . '/inc/class-deactivation.php';
+		BasePluginDeactivation::deactivate();
+	}
+
+	register_activation_hook(__FILE__, 'activate_base_plugin');
+	
+	register_deactivation_hook(__FILE__, 'deactivate_base_plugin');
+
 }
